@@ -1,5 +1,8 @@
 import axios from 'axios'
 import { v4 as uuid } from 'uuid'
+import eccrypto from 'eccrypto'
+
+window.eccrypto = eccrypto
 
 let user
 const userData = localStorage.getItem('user')
@@ -19,15 +22,20 @@ console.log(user)
 const submitter = {
   lvl3: '/nivel/3/publicKey',
   lvl4: '/nivel/4/camaron',
+  lvl5: '/nivel/5/firma',
+  lvl6: '/nivel/6/impostores',
 }
 
 const input = document.getElementById('input')
+const checkboxes = document.querySelectorAll('input.checksig')
 const message = document.getElementById('message')
 
 function sendInputValue() {
-  axios.post(submitter[input.name], {
+  const url = checkboxes.length ? submitter.lvl6 : submitter[input.name]
+  const payload = checkboxes.length ? Array.from(checkboxes).map((c, i) => { if (c.checked) { return i + 1 } else { return 0 } }).filter(v => v > 0).join(',') : input.value
+  axios.post(url, {
     user: user.uuid,
-    input: input.value,
+    input: payload,
   })
   .then(function (response) {
     console.log(response)

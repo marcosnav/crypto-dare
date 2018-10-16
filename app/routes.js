@@ -1,4 +1,5 @@
 const path = require('path')
+const eccrypto = require('eccrypto')
 
 const {
   IMP_MESSAGE_LVL_1,
@@ -14,6 +15,7 @@ const {
   LAST_CHAP_MESSAGE_SUCCESS,
   AES_HASH_MESSAGE,
   ECC_MESSAGE_TO_LEVEL_4,
+  ECC_MESSAGE_TO_LEVEL_5,
   ECC_MESSAGE_CAMARON,
   JABURA_PUBLIC_MESSAGE
 } = require('./messages')
@@ -22,6 +24,7 @@ const FAIL_RESPONSE = { title: 'Ooops!' }
 const aes = require('./aes_ccm')
 const ecc = require('./ecc')
 const km = require('./keyManager')
+const keys = require('./level6keys')
 const hashLevel1 = '1d024fa20bd6f6471c6e1ff0a53327ab03f4e3a0bb31c35381e61b0fbc1bea34'
 const routes = [
   {
@@ -82,9 +85,9 @@ const routes = [
       const { input, user } = params
       if (input && user) {
         km.saveKey(input, user, 'publicKey.txt')
-        ecc.encrypt(new Buffer(input, 'hex'), new Buffer(ECC_MESSAGE_TO_LEVEL_4))
+        ecc.encrypt(new Buffer(input, 'hex'), new Buffer(ECC_MESSAGE_TO_LEVEL_4 + '?user=' + user))
         .then((e) => {
-          res.json({ message: `${WIZARD_MESSAGE_2}\n\n${ecc.toString(e)}`, replace: true })
+          res.json({ message: `${WIZARD_MESSAGE_2}\n\n\n${ecc.toString(e)}`, replace: true })
         })
         .catch(err => res.json({ err: "Can't encrypt message. Please Try Again" }))
       } else {
@@ -98,9 +101,13 @@ const routes = [
     exec(drawer, req, res){
       const { params } = drawer
       if (params.opt === 'mensajes-secretos') {
-        res.render('4', {
-          title: 'Nivel 4',
-          messages: [CROW_MESSAGE],
+        const userPublicKey = km.getKeyBuffer(params.user, 'publicKey.txt')
+        ecc.encrypt(userPublicKey, new Buffer(ECC_MESSAGE_CAMARON))
+        .then((e) => {
+          res.render('4', {
+            title: 'Nivel 4',
+            messages: [ `${CROW_MESSAGE}\n\n\n${ecc.toString(e)}` ],
+          })
         })
       } else {
         res.render('fail', FAIL_RESPONSE)
@@ -112,7 +119,7 @@ const routes = [
     method: 'post',
     exec(drawer, req, res){
       const { params } = drawer
-      const { user, input} = params
+      const { user, input } = params
       if (user && input) {
         const userPublicKey = km.getKeyBuffer(user,'publicKey.txt')
         const jaburaPrivateKey = km.getKeyBuffer('jabura','privateKey.txt')
@@ -121,15 +128,16 @@ const routes = [
         .then(msg => msg.toString() == 'la corriente')
         .then(isValid => {
           if(!isValid) throw 'Invalid answer'
-          ecc.encrypt(userPublicKey, Buffer(ECC_MESSAGE_CAMARON))
+          ecc.encrypt(userPublicKey, Buffer(ECC_MESSAGE_TO_LEVEL_5))
           .then((e) => {
-            res.json({ message: ecc.toString(e), replace: true })
+            res.json({ message: 'Te respondieron!!! \n\n' + ecc.toString(e), replace: true })
           })
           .catch(err => res.json({ err: msg || "Can't encrypt message. Please Try Again" }))
         })
         .catch(err => {
+          console.log(err)
           let msg;
-          if(err == 'Invalid answer') msg = err
+          if(err == 'Invalid answer') msg = err.message
           res.json({ err: msg || "Can't decrypt message. Please Try Again"})
         })
       } else {
@@ -154,8 +162,6 @@ const routes = [
           title: 'Nivel 5',
           messages: [
             CRYPTO_GENERAL_MESSAGE,
-            CRYPTO_GENERAL_MESSAGE_FAIL,
-            CRYPTO_GENERAL_MESSAGE_SUCCESS,
           ]
         })
       } else {
@@ -164,14 +170,35 @@ const routes = [
     }
   },
   {
-    path: '/nivel/final/documento',
+    path: '/nivel/5/firma',
+    method: 'post',
+    exec(drawer, req, res){
+      const { params } = drawer
+      const { user, input } = params
+      if (user && input) {
+        const userPublicKey = km.getKeyBuffer(user, 'publicKey.txt')
+        const docHash = Buffer.from('07476228aac727a5cdae4d5a8eb39ce66cd9b7950964e22c5b424de0a174f6e1', 'hex')
+        eccrypto.verify(userPublicKey, docHash, Buffer.from(input, 'hex'))
+        .then(() => {
+          res.json({ message: CRYPTO_GENERAL_MESSAGE_SUCCESS, replace: true })
+        })
+        .catch(() => {
+          res.json({ message: CRYPTO_GENERAL_MESSAGE_FAIL, replace: true })
+        })
+      } else {
+        res.json({ err: 'missing params' })
+      }
+    }
+  },
+  {
+    path: '/nivel/6/documento',
     method: 'get',
     exec(drawer, req, res){
       res.download(path.join(__dirname, '..', 'public', 'documento-del-pueblo.pdf'))
     }
   },
   {
-    path: '/nivel/final/:opt',
+    path: '/nivel/6/:opt',
     method: 'get',
     exec(drawer, req, res){
       const { params } = drawer
@@ -180,12 +207,28 @@ const routes = [
           title: 'Nivel 6',
           messages: [
             LAST_CHAP_MESSAGE,
-            LAST_CHAP_MESSAGE_FAIL,
-            LAST_CHAP_MESSAGE_SUCCESS,
-          ]
+          ],
+          keys,
         })
       } else {
         res.render('fail', FAIL_RESPONSE)
+      }
+    }
+  },
+  {
+    path: '/nivel/6/impostores',
+    method: 'post',
+    exec(drawer, req, res){
+      const { params } = drawer
+      const { user, input } = params
+      if (user && input) {
+        if (input === '2,5') {
+          res.json({ message: LAST_CHAP_MESSAGE_SUCCESS, replace: true })
+        } else {
+          res.json({ message: LAST_CHAP_MESSAGE_FAIL, replace: true })
+        }
+      } else {
+        res.json({ err: 'missing params' })
       }
     }
   },

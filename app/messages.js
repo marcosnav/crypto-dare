@@ -20,7 +20,7 @@ const CRYPTO_GENERAL_MESSAGE = `Lo esperaba candidato. Soy el Crypto General, te
 
 const CRYPTO_GENERAL_MESSAGE_FAIL = `No puedo verificar esta firma con su cara pública candidato, pruebe de nuevo.`
 
-const CRYPTO_GENERAL_MESSAGE_SUCCESS = `Perfecto, con su firma donde debe estar. Ya solo debe demostrar que puede identificar impostores. Diríjase a /nivel/final/identifica-al-impostor`
+const CRYPTO_GENERAL_MESSAGE_SUCCESS = `Perfecto, con su firma donde debe estar. Ya solo debe demostrar que puede identificar impostores. Diríjase a /nivel/6/identifica-el-impostor`
 
 const LAST_CHAP_MESSAGE = `Caballero Saltamontes, ahora que ya es parte de nuestras filas, ayúdanos a descubrir impostores. Las siguientes personas firmaron el documento del pueblo pero algunos de ellos no son los verdaderos firmantes. Por favor identifiquelos.`
 
@@ -53,5 +53,6 @@ module.exports = {
   AES_HASH_MESSAGE,
   ECC_MESSAGE_TO_LEVEL_4,
   ECC_MESSAGE_CAMARON,
+  ECC_MESSAGE_TO_LEVEL_5,
   JABURA_PUBLIC_MESSAGE
 }

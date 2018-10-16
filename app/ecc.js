@@ -25,7 +25,7 @@ const toString = (data) => {
 
 const toBuffer = (data) => {
   const nData = JSON.parse(data);
-  for (const key in nData) { if (key) { nData[key] = new Buffer(nData[key], 'base64'); } }
+  for (const key in nData) { if (key) { nData[key] = Buffer.from(nData[key], 'base64'); } }
   return nData;
 };
 

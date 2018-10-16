@@ -3,4 +3,34 @@ extends layout.pug
 block content
   h2= title
   img(src="/general-2.jpg")
+  p Considere las siguientes firmas:
+  ul.keys
+    each val, index in keys
+      li
+        p
+          strong Pueblerino
+          br
+          span= val.name
+          br
+          strong Cara Publica
+          br
+          span= val.pub
+          br
+          strong Su firma
+          br
+          span= val.signature
   p#message= messages[0]
+  a#download(href="/nivel/6/documento") Descargar documento del pueblo
+  div.form
+    h4 ¿Quienes son los impostores?
+    label Dona de azúcar
+    input.checksig(type="checkbox", value="1")
+    label Juana Gabriela
+    input.checksig(type="checkbox", value="2")
+    label Luisillo
+    input.checksig(type="checkbox", value="3")
+    label El Zamarripa
+    input.checksig(type="checkbox", value="4")
+    label Blanquita
+    input.checksig(type="checkbox", value="5")
+    button#button Enviar

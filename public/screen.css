@@ -129,6 +129,11 @@ i {
   border-color: #40abdd;
 }
 
+label,
+.wrapper input.checksig {
+  display: inline;
+}
+
 .wrapper button,
 a#download {
   background: #40abdd;
@@ -138,4 +143,8 @@ a#download {
   font-family: sans-serif;
   line-height: 40px;
   margin-bottom: 16px;
+}
+
+ul.keys {
+  font-size: 0.7em;
 }
