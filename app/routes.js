@@ -1,3 +1,5 @@
+const path = require('path')
+
 const {
   IMP_MESSAGE_LVL_1,
   IMP_MESSAGE_LVL_2,
@@ -77,6 +79,13 @@ const routes = [
       } else {
         res.render('fail', FAIL_RESPONSE)
       }
+    }
+  },
+  {
+    path: '/nivel/5/documento',
+    method: 'get',
+    exec(drawer, req, res){
+      res.download(path.join(__dirname, '..', 'public', 'caballero-para-firma.pdf'))
     }
   },
   {

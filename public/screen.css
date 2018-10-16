@@ -98,6 +98,11 @@ i {
   width: 790px;
 }
 
+.wrapper h2 {
+  font-size: 2.07em;
+  text-align: center;
+}
+
 .wrapper img {
   height: auto;
   width: 100%;
@@ -106,4 +111,31 @@ i {
 .wrapper p {
   font-size: 1.44em;
   line-height: 1.44em;
+  word-wrap: break-word;
+}
+
+.wrapper .form {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper input {
+  border: 2px solid #cdcdcd;
+  line-height: 40px;
+  margin-bottom: 16px;
+}
+
+.wrapper input:focus {
+  border-color: #40abdd;
+}
+
+.wrapper button,
+a#download {
+  background: #40abdd;
+  border: none;
+  color: white;
+  display: inline-block;
+  font-family: sans-serif;
+  line-height: 40px;
+  margin-bottom: 16px;
 }

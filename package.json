@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
+    "build:client": "parcel build client/index.js && cp -f dist/index.js public/bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "pug": "^2.0.3",
-    "spacehorn": "^3.0.0"
+    "spacehorn": "^3.0.0",
+    "uuid": "^3.3.2"
   }
 }
