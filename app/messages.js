@@ -28,6 +28,8 @@ const LAST_CHAP_MESSAGE_FAIL = `Creo que debería verificar su respuesta, no cre
 
 const LAST_CHAP_MESSAGE_SUCCESS = `Excelente, ahora usted es todo un Crypto Caballero. Notifiquele a sus amigos para recibir aplausos.`
 
+const AES_HASH_MESSAGE = 'Para continuar tu camino a Crypto Caballero es necesario que domines la magia de la criptografía asimétrica. Puedes encontrar al Mago de las Llaves en /nivel/3/mago-de-llaves donde debes demostrar que tienes lo necesario.'
+
 module.exports = {
   IMP_MESSAGE_LVL_1,
   IMP_MESSAGE_LVL_2,
@@ -40,4 +42,5 @@ module.exports = {
   LAST_CHAP_MESSAGE,
   LAST_CHAP_MESSAGE_FAIL,
   LAST_CHAP_MESSAGE_SUCCESS,
+  AES_HASH_MESSAGE
 }

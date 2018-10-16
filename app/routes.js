@@ -10,17 +10,19 @@ const {
   LAST_CHAP_MESSAGE,
   LAST_CHAP_MESSAGE_FAIL,
   LAST_CHAP_MESSAGE_SUCCESS,
+  AES_HASH_MESSAGE
 } = require('./messages')
 
 const FAIL_RESPONSE = { title: 'Ooops!' }
-
+const aes = require('./aes_ccm')
+const hashLevel1 = '1d024fa20bd6f6471c6e1ff0a53327ab03f4e3a0bb31c35381e61b0fbc1bea34'
 const routes = [
   {
     path: '/nivel/1/:opt',
     method: 'get',
     exec(drawer, req, res){
       const { params } = drawer
-      if (params.opt === '1d024fa20bd6f6471c6e1ff0a53327ab03f4e3a0bb31c35381e61b0fbc1bea34') {
+      if (params.opt === hashLevel1) {
         res.render('1', {
           title: 'Nivel 1',
           messages: [IMP_MESSAGE_LVL_1],
@@ -39,7 +41,7 @@ const routes = [
         res.render('2', {
           title: 'Nivel 2',
           messages: [IMP_MESSAGE_LVL_2],
-          aesEncryptedMessage: '',
+          aesEncryptedMessage: aes.encrypt(hashLevel1, AES_HASH_MESSAGE).toString(),
         })
       } else {
         res.render('fail', FAIL_RESPONSE)
