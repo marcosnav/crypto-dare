@@ -1,5 +1,9 @@
 extends layout.pug
 
 block content
+  h2= title
   img(src="/wizard.jpg")
-  p= messages[0]
+  p#message= messages[0]
+  div.form
+    input#input(type="text", name="lvl3")
+    button#button Enviar
