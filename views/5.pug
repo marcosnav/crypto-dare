@@ -1,0 +1,10 @@
+extends layout.pug
+
+block content
+  h2= title
+  img(src="/general.jpg")
+  p#message= messages[0]
+  a#download(href="/nivel/5/documento") Descargar documento
+  div.form
+    input#input(type="text", name="lvl5", placeholder="Firma del documento")
+    button#button Enviar

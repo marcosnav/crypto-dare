@@ -1,0 +1,9 @@
+extends layout.pug
+
+block content
+  h2= title
+  img(src="/crow.jpg")
+  p#message= messages[0]
+  div.form
+    input#input(type="text", name="lvl4")
+    button#button Enviar

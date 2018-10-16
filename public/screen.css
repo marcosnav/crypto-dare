@@ -1,0 +1,141 @@
+/* SETUP */
+@import url("https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.css");
+@import url("https://fonts.googleapis.com/css?family=Noto+Serif:400,700");
+
+body {
+  background-color: #ebebeb;
+  color: #303030;
+  font-family: 'Noto Serif', serif;
+  font-size: 18px;
+  line-height: 1.45em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media screen and (max-width: 990px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Noto Serif', serif;
+  font-weight: 700;
+  line-height: 1.2em;
+  margin: 1.414em 0 0.5em;
+}
+
+p {
+  font-family: 'Noto Serif', serif;
+  margin-bottom: 1.3em;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 2.074em;
+}
+
+h2 {
+  font-size: 1.728em;
+}
+
+h3 {
+  font-size: 1.44em;
+}
+
+h4 {
+  font-size: 1.2em;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+small, .font_small {
+  font-size: 0.833em;
+}
+
+a, button {
+  cursor: pointer;
+  font-family: 'Noto Serif', serif;
+  transition: all 0.2s ease;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+iframe {
+  width: 100%;
+}
+
+input, textarea, button {
+  transition: all 0.2s ease;
+}
+
+input:focus, textarea:focus, button:focus {
+  outline: none;
+}
+
+pre {
+  margin: 0;
+  padding: 0;
+}
+
+i {
+  padding-right: 5px;
+}
+
+/* MAIN CONTENT */
+.wrapper {
+  background: white;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 42px;
+  position: relative;
+  width: 790px;
+}
+
+.wrapper h2 {
+  font-size: 2.07em;
+  text-align: center;
+}
+
+.wrapper img {
+  height: auto;
+  width: 100%;
+}
+
+.wrapper p {
+  font-size: 1.44em;
+  line-height: 1.44em;
+  word-wrap: break-word;
+}
+
+.wrapper .form {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper input {
+  border: 2px solid #cdcdcd;
+  line-height: 40px;
+  margin-bottom: 16px;
+}
+
+.wrapper input:focus {
+  border-color: #40abdd;
+}
+
+.wrapper button,
+a#download {
+  background: #40abdd;
+  border: none;
+  color: white;
+  display: inline-block;
+  font-family: sans-serif;
+  line-height: 40px;
+  margin-bottom: 16px;
+}
