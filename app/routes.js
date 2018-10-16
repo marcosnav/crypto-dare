@@ -14,7 +14,8 @@ const {
   LAST_CHAP_MESSAGE_SUCCESS,
   AES_HASH_MESSAGE,
   ECC_MESSAGE_TO_LEVEL_4,
-  ECC_MESSAGE_CAMARON
+  ECC_MESSAGE_CAMARON,
+  JABURA_PUBLIC_MESSAGE
 } = require('./messages')
 
 const FAIL_RESPONSE = { title: 'Ooops!' }
@@ -64,7 +65,7 @@ const routes = [
           title: 'Nivel 3',
           messages: [
             WIZARD_MESSAGE_1,
-            WIZARD_MESSAGE_2,
+            JABURA_PUBLIC_MESSAGE
           ],
           jaburaPublic: km.getKeyBuffer('jabura','publicKey.txt').toString('hex')
         })
@@ -83,7 +84,7 @@ const routes = [
         km.saveKey(input, user, 'publicKey.txt')
         ecc.encrypt(new Buffer(input, 'hex'), new Buffer(ECC_MESSAGE_TO_LEVEL_4))
         .then((e) => {
-          res.json({ message: ecc.toString(e), replace: true })
+          res.json({ message: `${WIZARD_MESSAGE_2}\n\n${ecc.toString(e)}`, replace: true })
         })
         .catch(err => res.json({ err: "Can't encrypt message. Please Try Again" }))
       } else {

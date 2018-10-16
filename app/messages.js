@@ -36,6 +36,8 @@ const ECC_MESSAGE_CAMARON = 'Buenas tardes candidato a Crypto Caballero. Es mene
 
 const ECC_MESSAGE_TO_LEVEL_5 = 'Es cierto, la corriente. Lo espero en /nivel/5/firma-tu-union para concretar su unión a nuestras filas!'
 
+const JABURA_PUBLIC_MESSAGE = 'Esta es la publica del reino, utilizala para comunicarle un mensaje secreto cuando sea necesario.'
+
 module.exports = {
   IMP_MESSAGE_LVL_1,
   IMP_MESSAGE_LVL_2,
@@ -50,5 +52,6 @@ module.exports = {
   LAST_CHAP_MESSAGE_SUCCESS,
   AES_HASH_MESSAGE,
   ECC_MESSAGE_TO_LEVEL_4,
-  ECC_MESSAGE_CAMARON
+  ECC_MESSAGE_CAMARON,
+  JABURA_PUBLIC_MESSAGE
 }
